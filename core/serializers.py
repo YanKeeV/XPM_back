@@ -16,7 +16,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'name', 'surmane', 'password', 'token']
+        fields = ['email', 'name', 'surname', 'password', 'token']
 
     def create(self, validated_data):
         
@@ -25,9 +25,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
 
     email = serializers.CharField(max_length=255)
-    image = serializers.ImageField()
-    name = serializers.CharField(max_length=255, read_only=True)
-    surname = serializers.CharField(max_length=255, read_only=True)
     password = serializers.CharField(max_length=128, write_only=True)
     token = serializers.CharField(max_length=255, read_only=True)
 
@@ -60,7 +57,7 @@ class LoginSerializer(serializers.Serializer):
 
         return {
             'email': user.email,
-            'username': user.username,
+            'name': user.name,
             'token': user.token
         }
     
@@ -74,7 +71,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'mane', 'surmane', 'image', 'password', 'token',)
+        fields = ('email', 'name', 'surname', 'image', 'password', 'token',)
 
         read_only_fields = ('token',)
 
