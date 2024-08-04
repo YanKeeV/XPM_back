@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 AUTH_USER_MODEL = 'core.User'
 
 # Application definition
@@ -42,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'tasks',
-    'drf_spectacular', 
+    'drf_spectacular',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'XPM_back.urls'
