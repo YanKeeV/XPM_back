@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Task
+from .models import Task, Category
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -32,3 +32,16 @@ class TaskSerializer(serializers.ModelSerializer):
         instance.style = validated_data.get('style', instance.style)
         instance.save()
         return instance """
+    
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        user = request.user if request else None
+        
+        validated_data.pop('user', None)
+        return Category.objects.create(user=user, **validated_data)

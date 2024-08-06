@@ -13,12 +13,17 @@ urlpatterns = [
     # Create view
     path('create/', views.add_task, name='task-create'),
 
-    # Retrieve view (Read one)
-    #path('tasks/<int:pk>/', views., name='task-retrieve'),
-
     # Update view
     path('update/<int:pk>', views.update_task, name='task-update'),
 
     # Delete view
     path('delete/<int:pk>', views.delete_task, name='task-destroy'),
+
+    path('category', views.view_categories, name='category-list'),
+
+    path('category/create/', views.add_category, name='category-create'),
+
+    path('category/update/<int:pk>', views.update_category, name='category-update'),
+    
+    path('category/delete/<int:pk>', views.delete_category, name='category-destroy'),
 ]
