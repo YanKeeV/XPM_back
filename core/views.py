@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateAPIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -65,3 +66,23 @@ class UserRetrieveUpdateAPIView(RetrieveUpdateAPIView):
         serializer.save()
 
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class SetImageAPIView(APIView):
+
+    permission_classes = [IsAuthenticated,]
+    renderer_classes = (UserJSONRenderer,)
+    serializer_class = UserSerializer
+    parser_classes = [MultiPartParser, FormParser]
+
+    def put(self, request):
+
+        user = request.user
+        print(request.data)
+        user_serializer = UserSerializer(user, data=request.data, partial=True)
+        if user_serializer.is_valid():
+            user_serializer.save()
+            return Response(user_serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    
