@@ -4,6 +4,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.core.mail import send_mail
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.dispatch import receiver
 
 import core.scheme
 
@@ -85,4 +88,16 @@ class SetImageAPIView(APIView):
         else:
             return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
+    send_mail(
+        # Title:
+        "Password Reset for {title}".format(title="XPManager"),
+        # Message:
+        # change link for release
+        "Use the following link to reset your password: http://localhost:5173/login/resetpassword/confirm?token={token}".format(token=reset_password_token.key),
+        # From:
+        "your-email@gmail.com",
+        # To:
+        [reset_password_token.user.email]
+    )
