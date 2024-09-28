@@ -13,6 +13,7 @@ class Task(models.Model):
         ('H', 'High'),
         ('M', 'Medium'),
         ('L', 'Low'),
+        ('N', 'null'),
     ]
 
     name = models.CharField(max_length=255, blank=True)
