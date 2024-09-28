@@ -128,7 +128,7 @@ def update_category(request, pk):
     try:
         category = Category.objects.get(pk=pk)
     except Category.DoesNotExist:
-        raise NotFound(detail="Task not found.")
+        raise NotFound(detail="Category not found.")
 
     data = CategorySerializer(instance=category, data=request.data)
  
