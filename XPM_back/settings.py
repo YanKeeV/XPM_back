@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'core',
     'tasks',
+    'notes',
     'drf_spectacular',
     'corsheaders',
     'django_rest_passwordreset',
