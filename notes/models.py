@@ -7,7 +7,7 @@ class Note(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
     isPinned = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    tags = models.ManyToManyField('Tag', related_name='notes')
+    tags = models.ManyToManyField('Tag', related_name='notes', blank=True)
 
     def __str__(self) -> str:
         return self.title
