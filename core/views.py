@@ -95,7 +95,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         "Password Reset for {title}".format(title="XPManager"),
         # Message:
         # change link for release
-        "Use the following link to reset your password: http://localhost:5173/login/resetpassword/confirm?token={token}".format(token=reset_password_token.key),
+        "Use the following link to reset your password: https://xpm.com.ua/login/resetpassword/confirm?token={token}".format(token=reset_password_token.key),
         # From:
         "your-email@gmail.com",
         # To:
